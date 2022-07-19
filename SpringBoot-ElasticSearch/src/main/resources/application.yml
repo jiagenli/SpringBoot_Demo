@@ -1,0 +1,7 @@
+app:
+  author: reagan
+
+elastic:
+  address: http://ip:9200
+  username: elastic
+  password: 
