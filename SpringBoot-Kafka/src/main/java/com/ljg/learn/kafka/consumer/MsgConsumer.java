@@ -12,6 +12,6 @@ public class MsgConsumer {
 
     @KafkaHandler
     public void receive(String message) {
-
+        log.info("消费者收到的消息是：" + message);
     }
 }

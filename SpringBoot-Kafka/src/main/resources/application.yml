@@ -1,9 +1,11 @@
 app:
   author: reagan
 spring:
+  profiles:
+    active: reagan
   kafka:
     # kafka服务地址
-    bootstrap-servers: ip:9092
+    bootstrap-servers: 127.0.0.1:9092
     producer:
       # 生产者消息key序列化方式
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
