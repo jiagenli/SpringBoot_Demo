@@ -1,11 +1,10 @@
 app:
   author: reagan
+#  这个配置是用来测试Kafka实际生产使用的，比如关闭自动offset等
 spring:
-  profiles:
-    active: dev
   kafka:
     # kafka服务地址
-    bootstrap-servers: ip:9092
+    bootstrap-servers: 127.0.0.1:9092
     producer:
       # 生产者消息key序列化方式
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -14,7 +13,7 @@ spring:
     consumer:
       # 消费者组
       group-id: test-consumer-group
-      # 消费者消息value反序列化方式
+      # 消费者消息key反序列化方式
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       # 消费者消息value反序列化方式
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
