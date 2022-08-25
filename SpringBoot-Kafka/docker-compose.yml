@@ -5,6 +5,8 @@ services:
     container_name: zookeeper
     ports:
       - "2181:2181"
+    environment:
+      zookeeper.sasl.client: "false"
   kafka:
     image: wurstmeister/kafka
     container_name: kafka
@@ -27,5 +29,8 @@ services:
     container_name: kafka-manager
     environment:
       ZK_HOSTS: 127.0.0.1
+    # kafka-manager 报错：This application is already running (Or delete /opt/kafka-manager/RUNNING_PID file)
+    # 加了下面这行代码就好了
+    command: -Dpidfile.path=/dev/null
     ports:
       - "9009:9000"
