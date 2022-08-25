@@ -27,4 +27,16 @@ public class MsgProducerController {
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>("mingyue", message);
         kafkaTemplate.send(producerRecord);
     }
+
+    /**
+     * 测试批量提交和手动offset
+     * @param message
+     */
+    @RequestMapping("/send3")
+    public void send3(String message) {
+        for (int i = 0; i < 1000; i++) {
+            ProducerRecord<String, String> producerRecord = new ProducerRecord<>("test", message + String.valueOf(i));
+            kafkaTemplate.send(producerRecord);
+        }
+    }
 }
