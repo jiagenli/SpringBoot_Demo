@@ -34,7 +34,7 @@ public class MsgProducerController {
      */
     @RequestMapping("/send3")
     public void send3(String message) {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             ProducerRecord<String, String> producerRecord = new ProducerRecord<>("test", message + String.valueOf(i));
             kafkaTemplate.send(producerRecord);
         }

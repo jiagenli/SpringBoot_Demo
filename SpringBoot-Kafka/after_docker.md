@@ -34,3 +34,8 @@ kafka-console-producer.sh --topic=mingyue --broker-list kafka:9092
 ```shell
 kafka-console-consumer.sh --bootstrap-server kafka:9092 --from-beginning --topic mingyue
 ```
+
+### 查看offset，offset存在broker中
+```shell
+kafka-consumer-groups.sh --bootstrap-server kafka:9092 --describe --group test-consumer-group
+```
