@@ -39,4 +39,13 @@ public class MsgProducerController {
             kafkaTemplate.send(producerRecord);
         }
     }
+
+    /**
+     * 测试Kafka事务
+     * @param num
+     */
+    @RequestMapping("/trans")
+    public void send3(Integer num) {
+
+    }
 }

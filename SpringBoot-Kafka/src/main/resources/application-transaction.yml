@@ -1,0 +1,39 @@
+app:
+  author: reagan
+#  这个配置是用来测试Kafka实际生产使用的，比如关闭自动offset等
+spring:
+  kafka:
+    # kafka服务地址
+    bootstrap-servers: 127.0.0.1:9092
+    producer:
+      # 若设置大于0的值，客户端会将发送失败的记录重新发送
+      # 若是要用Kafka事务，retries一定要大于0
+      retries: 1
+      #当将多个记录被发送到同一个分区时， Producer 将尝试将记录组合到更少的请求中。这有助于提升客户端和服务器端的性能。这个配置控制一个批次的默认大小（以字节为单位）。16384是缺省的配置
+      batch-size: 16384
+      #Producer 用来缓冲等待被发送到服务器的记录的总字节数，33554432是缺省配置
+      buffer-memory: 33554432
+      # 生产者消息key序列化方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 生产者消息value序列化方式
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 配置了事务的话，要显式知名acks的参数为-1 all
+      acks: all
+      # 事务前缀
+      transaction-id-prefix: transaction-test-
+    consumer:
+      # 消费者组
+      group-id: test-consumer-group
+      # 消费者消息key反序列化方式
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 消费者消息value反序列化方式
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # offset 自动提交
+      enable-auto-commit: false
+    listener:
+      # 在监听器容器中运行的线程数
+      concurrency: 4
+      # listener 负责ack，手动调用Acknowledgement.acknowledge()后立即提交
+      ack-mode: manual_immediate
+      # 避免出现主题未创建报错
+      missing-topics-fatal: false

@@ -2,7 +2,7 @@ app:
   author: reagan
 spring:
   profiles:
-    active: dev
+    active: transaction
   kafka:
     # kafka服务地址
     bootstrap-servers: 127.0.0.1:9092
@@ -14,6 +14,10 @@ spring:
     consumer:
       # 消费者组
       group-id: test-consumer-group
+      # 该属性指定了消费者在读取一个没有偏移量的分区或者偏移量无效的情况下该如何处理
+      auto-offset-reset: earliest
+      # 自动提交不是每次poll到消息就提交，而是周期性提交，周期时间由"auto.commit.interval.ms"参数决定，默认值：5000ms。
+      auto-commit-interval: 1S
       # 消费者消息value反序列化方式
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       # 消费者消息value反序列化方式
