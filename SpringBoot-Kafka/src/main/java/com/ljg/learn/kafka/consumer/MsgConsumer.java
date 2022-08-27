@@ -39,6 +39,17 @@ public class MsgConsumer {
         ack.acknowledge();
     }
 
+    /**
+     * 测试事务消息
+     * @param record
+     * @param ack
+     */
+    @KafkaListener(topics = {"test-transaction"})
+    public void consumeTransaction(ConsumerRecord<?, ?> record, Acknowledgment ack) {
+        log.info("测试用consumerRecord得到的消息：" + record.toString());
+        ack.acknowledge();
+    }
+
 //    @KafkaHandler(isDefault = false)
 //    public void receiveRecord2(Object message) {
 //        log.info("消费者收到的消息是：" + message);

@@ -2,7 +2,11 @@ package com.ljg.learn.kafka.controller;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,11 +45,35 @@ public class MsgProducerController {
     }
 
     /**
-     * 测试Kafka事务
+     * 测试Kafka事务 注解式
      * @param num
      */
     @RequestMapping("/trans")
+    @Transactional(rollbackFor = RuntimeException.class)
     public void send3(Integer num) {
+        kafkaTemplate.send("test-transaction", "这是事务消息1 + " + num);
+        if (num == 0) {
+            throw new RuntimeException();
+        }
+        kafkaTemplate.send("test-transaction", "这是事务消息2 + " + num);
+    }
 
+    /**
+     * 测试Kafka事务 声明式
+     * @param num
+     */
+    @RequestMapping("/trans2")
+    public void send4(Integer num) {
+        kafkaTemplate.executeInTransaction(new KafkaOperations.OperationsCallback() {
+            @Override
+            public Object doInOperations(KafkaOperations operations) {
+                operations.send("test-transaction", "这是事务消息1 + " + num);
+                if (num == 0) {
+                    throw new RuntimeException();
+                }
+                operations.send("test-transaction", "这是事务消息2 + " + num);
+                return true;
+            }
+        });
     }
 }
