@@ -25,6 +25,11 @@ kafka-topics.sh --create --topic mingyue \
 kafka-topics.sh --zookeeper zookeeper:2181 --describe --topic mingyue
 ```
 
+### 查看所有 topic
+```shell
+kafka-topics.sh --zookeeper zookeeper:2181 --list
+```
+
 ### 打开生产者发送消息
 ```shell
 kafka-console-producer.sh --topic=mingyue --broker-list kafka:9092
