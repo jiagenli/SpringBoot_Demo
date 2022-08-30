@@ -2,6 +2,6 @@ app:
   author: reagan
 
 elastic:
-  address: http://9.135.245.236:9200
-  username: elastic
-  password: hnHWU*5429SPsy
+  address: http://localhost:9200
+#  username: elastic
+#  password: hnHWU*5429SPsy

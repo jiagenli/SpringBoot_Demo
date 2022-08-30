@@ -22,7 +22,7 @@ class ElasticSearchTest {
 
     @Test
     public void testCreateIndex() throws IOException {
-        CreateIndexRequest request = new CreateIndexRequest("reaganjgli");
+        CreateIndexRequest request = new CreateIndexRequest("reagan");
         CreateIndexResponse response = restHighLevelClient.indices().create(request, RequestOptions.DEFAULT);
 
         System.out.println(response.isAcknowledged());

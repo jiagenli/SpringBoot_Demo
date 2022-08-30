@@ -20,16 +20,16 @@ public class ElasticConfig extends AbstractElasticsearchConfiguration {
 
     @Value("${elastic.address}")
     private List<String> addressList;
-    @Value("${elastic.username}")
-    private String username;
-    @Value("${elastic.password}")
-    private String password;
+//    @Value("${elastic.username}")
+//    private String username;
+//    @Value("${elastic.password}")
+//    private String password;
 
     @Override
     public RestHighLevelClient elasticsearchClient() {
         HttpHost[] httpHosts = new HttpHost[addressList.size()];
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
+//        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
         for (int i = 0; i < addressList.size(); i++) {
             String address = addressList.get(i);
             log.info("create elastic host:{}", address);
