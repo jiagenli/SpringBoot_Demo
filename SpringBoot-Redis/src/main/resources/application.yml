@@ -1,0 +1,7 @@
+app:
+  author: reagan
+spring:
+  profiles:
+    active: default
+  redis:
+

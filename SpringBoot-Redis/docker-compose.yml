@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  redis:
+    image: redis
+    container_name: redis
+    volumes:
+      - /tmp/reagan/redis/data:/data
+      # docker-compose里这个conf文件是不是一定要用绝对路径
+      - /tmp/reagan/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    restart: always
+    command: redis-server /usr/local/etc/redis/redis.conf
