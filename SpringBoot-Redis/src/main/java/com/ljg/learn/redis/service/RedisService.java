@@ -25,7 +25,7 @@ public interface RedisService {
     /**
      * 删除数据
      */
-    void remove();
+    void remove(String key);
 
     /**
      * 自增操作
