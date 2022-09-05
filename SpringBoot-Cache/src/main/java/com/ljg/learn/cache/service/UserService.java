@@ -1,6 +1,7 @@
 package com.ljg.learn.cache.service;
 
-import com.ljg.learn.redis.model.User;
+import com.ljg.learn.cache.mapper.UserMapper;
+import com.ljg.learn.cache.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class UserService {
 
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * 查询用户信息
@@ -28,11 +31,19 @@ public class UserService {
 
         if (null == userJson || userJson.isEmpty()) {
             log.info("缓存中没有用户信息");
-            return null;
+            log.info("开始查数据库");
+            User dbUser = userMapper.selectById(userId);
+            if (dbUser != null) {
+                redisService.set(USER_REDIS_KEY + dbUser.getUserId(), dbUser.getUsername());
+                return dbUser;
+            } else {
+                log.info("数据库中也没有缓存信息");
+                return null;
+            }
         }
 
         log.info("缓存中有数据");
-        return User.builder().userId(userId).userName(userJson).build();
+        return User.builder().userId(userId).username(userJson).build();
     }
 
     /**
@@ -47,6 +58,7 @@ public class UserService {
             log.info("缓存中有用户信息");
             return;
         }
-        redisService.set(key, user.getUserName());
+        userMapper.insert(user);
+        redisService.set(key, user.getUsername());
     }
 }

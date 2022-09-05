@@ -18,3 +18,13 @@ default-character-set=utf8
 default-character-set=utf8
 ```
 然后就可以在docker-compose中启动了。
+
+## 建表
+```roomsql
+CREATE TABLE `sys_user` (
+                            `user_id` varchar(64) NOT NULL,
+                            `username` varchar(64) NOT NULL,
+                            PRIMARY KEY (`user_id`),
+                            KEY `user_idx1_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='用户表';
+```

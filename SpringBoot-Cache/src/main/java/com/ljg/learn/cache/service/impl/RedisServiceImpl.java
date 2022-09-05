@@ -1,6 +1,6 @@
 package com.ljg.learn.cache.service.impl;
 
-import com.ljg.learn.redis.service.RedisService;
+import com.ljg.learn.cache.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.ljg.learn.cache.controller;
 
-import com.ljg.learn.redis.model.User;
-import com.ljg.learn.redis.service.UserService;
+import com.ljg.learn.cache.model.User;
+import com.ljg.learn.cache.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +20,10 @@ public class RedisController {
 
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestParam("userId") String userId,
-                           @RequestParam("userName") String userName) {
+                           @RequestParam("username") String username) {
         User user = User.builder()
                 .userId(userId)
-                .userName(userName)
+                .username(username)
                 .build();
         userService.createUser(user);
         return ResponseEntity.ok(user);
