@@ -5,6 +5,7 @@ import com.ljg.learn.cache.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,7 @@ public class UserService {
 
     private static final String USER_REDIS_KEY = "user:info:";
 
+    private static final String REDIS_KEY_DATABASE = "reagan";
     @Autowired
     private RedisService redisService;
     @Autowired
@@ -24,27 +26,32 @@ public class UserService {
      * @param userId
      * @return
      */
+    @Cacheable(value = "#result", key = USER_REDIS_KEY + "+#userId", unless = "#result==null")
     public User queryUserById(String userId) {
         log.info("根据用户ID查用户信息");
-
-        String userJson = redisService.get(USER_REDIS_KEY + userId);
-
-        if (null == userJson || userJson.isEmpty()) {
-            log.info("缓存中没有用户信息");
-            log.info("开始查数据库");
-            User dbUser = userMapper.selectById(userId);
-            if (dbUser != null) {
-                redisService.set(USER_REDIS_KEY + dbUser.getUserId(), dbUser.getUsername());
-                return dbUser;
-            } else {
-                log.info("数据库中也没有缓存信息");
-                return null;
-            }
-        }
-
-        log.info("缓存中有数据");
-        return User.builder().userId(userId).username(userJson).build();
+        return userMapper.selectById(userId);
     }
+//    public User queryUserById(String userId) {
+//        log.info("根据用户ID查用户信息");
+//
+//        String userJson = redisService.get(USER_REDIS_KEY + userId);
+//
+//        if (null == userJson || userJson.isEmpty()) {
+//            log.info("缓存中没有用户信息");
+//            log.info("开始查数据库");
+//            User dbUser = userMapper.selectById(userId);
+//            if (dbUser != null) {
+//                redisService.set(USER_REDIS_KEY + dbUser.getUserId(), dbUser.getUsername());
+//                return dbUser;
+//            } else {
+//                log.info("数据库中也没有缓存信息");
+//                return null;
+//            }
+//        }
+//
+//        log.info("缓存中有数据");
+//        return User.builder().userId(userId).username(userJson).build();
+//    }
 
     /**
      * 创建用户信息
