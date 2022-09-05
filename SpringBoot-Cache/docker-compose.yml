@@ -3,6 +3,8 @@ services:
   redis:
     image: redis
     container_name: redis
+    networks:
+      - host
     volumes:
       - /tmp/reagan/redis/data:/data
       # docker-compose里这个conf文件是不是一定要用绝对路径
@@ -11,3 +13,23 @@ services:
       - "6379:6379"
     restart: always
     command: redis-server /usr/local/etc/redis/redis.conf
+  mysql:
+      image: mysql/mysql-server:5.7
+      container_name: mysql
+      restart: always
+      networks:
+        - host
+      ports:
+        - "3306:3306"
+      environment:
+        - "MYSQL_ROOT_PASSWORD=123456"
+        - "MYSQL_DATABASE=reagan"
+        - "TZ=Asia/Shanghai"
+      volumes:
+        - /tmp/reagan/mysql/mydir:/mydir
+        - /tmp/reagan/mysql/datadir:/var/lib/mysql
+        - /tmp/reagan/mysql/my.cnf:/etc/my.cnf
+        # 数据库还原目录 可将需要还原的sql文件放在这里
+        - /tmp/reagan/mysql/source:/docker-entrypoint-initdb.d
+networks:
+  host:
