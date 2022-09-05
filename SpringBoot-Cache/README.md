@@ -28,3 +28,25 @@ CREATE TABLE `sys_user` (
                             KEY `user_idx1_username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='用户表';
 ```
+
+## 可能会遇到的问题
+报错信息1
+```
+java.sql.SQLException: null,  message from server: "Host '172.27.0.1' is not allowed to connect to this MySQL server"
+```
+问题原因：
+
+mysql中的root用户不允许远程登陆，可以通过以下命令看到：
+```roomsql
+use mysql;
+select host, user from user;
+```
+解决方案：
+
+将root用户设置为所有ip都可连接。
+```roomsql
+update user set host = '%' where user = 'root';
+```
+
+重启docker解决问题。
+
