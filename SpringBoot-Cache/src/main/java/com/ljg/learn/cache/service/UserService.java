@@ -23,10 +23,11 @@ public class UserService {
 
     /**
      * 查询用户信息
+     * Cacheable是如何知道在用redis的呢？
      * @param userId
      * @return
      */
-    @Cacheable(value = "#result", key = USER_REDIS_KEY + "+#userId", unless = "#result==null")
+    @Cacheable(value = REDIS_KEY_DATABASE, key = "'" + USER_REDIS_KEY + "'+#userId")
     public User queryUserById(String userId) {
         log.info("根据用户ID查用户信息");
         return userMapper.selectById(userId);
