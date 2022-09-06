@@ -1,0 +1,7 @@
+app:
+  author: reagan
+
+elastic:
+  address: http://localhost:9200
+#  username: elastic
+#  password: hnHWU*5429SPsy
