@@ -1,0 +1,15 @@
+app:
+  author: reagan
+server.port: 0
+spring:
+  profiles:
+    active: default
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery.prefer-ip-address: true
+management:
+  endpoints.web.exposure.include: *
+  endpoint.health.show-details: always
+
