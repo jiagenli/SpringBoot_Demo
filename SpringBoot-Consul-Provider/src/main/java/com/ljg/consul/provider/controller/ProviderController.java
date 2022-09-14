@@ -20,6 +20,6 @@ public class ProviderController {
     public ResponseEntity<String> myCustomCheck() {
         String message = "Testing my healh check function";
         log.info(message);
-        return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
