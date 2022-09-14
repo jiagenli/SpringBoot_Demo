@@ -13,6 +13,8 @@ spring:
       discovery:
         prefer-ip-address: true
         instanceId: ${spring.application.name}:${random.value}
+        healthCheckPath: /my-health-check
+        healthCheckInterval: 20s
 #management:
 #  endpoints.web.exposure.include: *
 #  endpoint.health.show-details: always
