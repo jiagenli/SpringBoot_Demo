@@ -1,15 +1,19 @@
 app:
   author: reagan
-server.port: 0
+server.port: 8080
 spring:
+  application:
+    name: reagan
   profiles:
     active: default
   cloud:
     consul:
       host: localhost
       port: 8500
-      discovery.prefer-ip-address: true
-management:
-  endpoints.web.exposure.include: *
-  endpoint.health.show-details: always
+      discovery:
+        prefer-ip-address: true
+        instanceId: ${spring.application.name}:${random.value}
+#management:
+#  endpoints.web.exposure.include: *
+#  endpoint.health.show-details: always
 
