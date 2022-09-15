@@ -1,9 +1,9 @@
 app:
   author: reagan
-server.port: 8080
+server.port: 8081
 spring:
   application:
-    name: reagan
+    name: reagan-consumer
   profiles:
     active: default
   cloud:
@@ -14,7 +14,7 @@ spring:
         prefer-ip-address: true
         instanceId: ${spring.application.name}:${random.value}
         healthCheckPath: /my-health-check
-        healthCheckInterval: 200s
+        healthCheckInterval: 20s
 #management:
 #  endpoints.web.exposure.include: *
 #  endpoint.health.show-details: always
