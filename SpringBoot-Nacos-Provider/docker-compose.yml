@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  nacos:
+    # mac m1 arm版
+    image:  nacos/nacos-server:v2.1.1-slim
+    container_name: nacos
+    ports:
+      - "8848:8848"
+    environment:
+      - MODE=standalone

@@ -1,0 +1,21 @@
+app:
+  author: reagan
+server.port: 8080
+spring:
+  application:
+    name: reagan
+  profiles:
+    active: default
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+        instanceId: ${spring.application.name}:${random.value}
+        healthCheckPath: /my-health-check
+        healthCheckInterval: 200s
+#management:
+#  endpoints.web.exposure.include: *
+#  endpoint.health.show-details: always
+
