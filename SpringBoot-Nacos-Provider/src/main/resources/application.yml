@@ -3,19 +3,16 @@ app:
 server.port: 8080
 spring:
   application:
-    name: reagan
+    name: reagan_provider
   profiles:
     active: default
   cloud:
-    consul:
-      host: localhost
-      port: 8500
+    nacos:
       discovery:
-        prefer-ip-address: true
-        instanceId: ${spring.application.name}:${random.value}
-        healthCheckPath: /my-health-check
-        healthCheckInterval: 200s
-#management:
-#  endpoints.web.exposure.include: *
-#  endpoint.health.show-details: always
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+management:
+  endpoints.web.exposure.include: "*"
+  endpoint.health.show-details: always
 
