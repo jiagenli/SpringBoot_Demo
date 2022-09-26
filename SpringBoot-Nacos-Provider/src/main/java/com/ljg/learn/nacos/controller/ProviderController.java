@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProviderController {
 
     @GetMapping("/provider")
-    public void query() {
+    public String query() {
         log.info("远程调用成功" + System.currentTimeMillis());
+        return "hello consumer";
     }
 
     @GetMapping("/my-health-check")

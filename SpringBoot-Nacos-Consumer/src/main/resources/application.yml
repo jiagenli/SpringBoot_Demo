@@ -1,9 +1,9 @@
 app:
   author: reagan
-server.port: 8080
+server.port: 8081
 spring:
   application:
-    name: reagan-provider
+    name: reagan-consumer
   profiles:
     active: default
   cloud:
